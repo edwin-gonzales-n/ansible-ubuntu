@@ -8,3 +8,5 @@
         apt: pkg=nginx state=present update_cache=true
       - name: Installing wget
         apt: name={{ package2 }} state=present update_cache=true
+      - name: Copying test1.out
+        copy: src=/tmp/test1.out dest=/tmp/test1.out
