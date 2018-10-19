@@ -1,0 +1,10 @@
+---
+- hosts: my_nodes
+  vars:
+   package1: "nginx"
+   package2: "wget"
+  tasks:
+      - name: Installing package NGINX
+        apt: pkg=nginx state=present update_cache=true
+      - name: Installing wget
+        apt: name={{ package2 }} state=present update_cache=true
