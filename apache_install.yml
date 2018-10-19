@@ -1,0 +1,14 @@
+---
+- hosts: web_portal
+  tasks:
+      - name: Apt-get update
+        apt:
+           update_cache: yes
+
+      - name: Install Apache
+        apt:
+           name: apache2
+           update_cache: no
+
+      - name: Copy data files
+        copy: src=index.html dest=/var/www/html/

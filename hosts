@@ -44,3 +44,6 @@
 [my_nodes]
 ansible-node1
 ansible-node2
+
+[web_portal]
+ansible-node1
