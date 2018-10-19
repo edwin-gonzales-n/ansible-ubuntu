@@ -5,13 +5,14 @@
         apt:
            update_cache: yes
 
-      - name: Install Apache
-        apt:
-           name: apache2
+      - name: Install APACHE, NGINX, TMUX, and NTP
+        apt: 
+           name: ['apache2', 'nginx', 'tmux', 'ntp'] 
            update_cache: no
 
       - name: Copy data files
         copy: src=index.html dest=/var/www/html/
+        register: copy_status
 
       - name: Stop the Apache Service
         service:
@@ -20,8 +21,22 @@
 
       - name: Copy template file
         template: src=current.html.j2 dest=/var/www/html/current.html
+        register: template_status
         notify:
           - Start apache
+
+      - name: Check Uptime
+        shell: uptime
+        register: uptime_var
+
+      - name: Copy status
+        debug: var=copy_status
+
+      - name: Template copy status
+        debug: var=template_status
+
+      - name: Uptime output
+        debug: var=uptime_var
 
   handlers:
      - name: Start apache
