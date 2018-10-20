@@ -5,25 +5,22 @@
         apt:
            update_cache: yes
 
-      - name: Install APACHE, NGINX, TMUX, and NTP
+      - name: Install APACHE, NGINX, TMUX, NMAP, and NTP
         apt: 
-           name: ['apache2', 'nginx', 'tmux', 'ntp'] 
+           name: ['apache2', 'nginx', 'tmux', 'nmap', 'ntp'] 
            update_cache: no
 
       - name: Copy data files
         copy: src=index.html dest=/var/www/html/
         register: copy_status
-
-      - name: Stop the Apache Service
-        service:
-            name: apache2
-            state: stopped
+        notify:
+        - Stop apache
 
       - name: Copy template file
         template: src=current.html.j2 dest=/var/www/html/current.html
         register: template_status
         notify:
-          - Start apache
+        - Start apache
 
       - name: Check Uptime
         shell: uptime
@@ -38,8 +35,21 @@
       - name: Uptime output
         debug: var=uptime_var
 
+      - name: Testing Conditional
+        shell: uptime
+        when: ansible_hostname == "ansible-node1"
+
+      - name: Testing until
+        shell: systemctl status apache2
+        register: result
+        until: result.stdout.find("active (running)") != -1
+        retries: 5
+        delay: 5
+
+
   handlers:
      - name: Start apache
-       service: 
-           name: apache2
-           state: restarted
+       service: name=apache2 state=started
+
+     - name: Stop apache
+       service: name=apache2 state=stopped
