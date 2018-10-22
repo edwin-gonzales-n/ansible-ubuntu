@@ -1,0 +1,28 @@
+---
+- hosts: suse_nodes
+  vars:
+   package1: "nginx"
+   package2: "wget"
+
+  tasks:
+      - name: Installing package NGINX
+        zypper: pkg=nginx state=present update_cache=yes
+
+      - name: Installing wget
+        zypper: name={{ package2 }} state=present update_cache=yes
+
+#      - name: Copying test1.out
+#        copy: src=/tmp/test1.out dest=/tmp/test1.out
+
+      - name: Installing NTP
+        zypper:
+         name: ntp
+         state: latest
+
+      - name: Zypper update
+        zypper:
+         name: "*"
+         state: latest
+
+      - name: Installing Java 1.8
+        zypper: name=java-1_8_0-openjdk state=latest update_cache=yes

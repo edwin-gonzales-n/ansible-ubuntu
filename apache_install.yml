@@ -39,7 +39,7 @@
 
       - name: Testing Conditional
         shell: uptime
-        when: ansible_hostname == "ansible-node2"
+        when: ansible_hostname == "ansible-node1"
 
       - name: Testing until
         shell: systemctl status apache2

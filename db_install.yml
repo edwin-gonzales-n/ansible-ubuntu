@@ -1,0 +1,12 @@
+---
+- hosts: db_portal
+  tasks:
+    - name: yum update
+      yum:
+        name: '*'
+        state: latest
+  
+    - name: mysql, postgres, and mongodb
+      yum:
+        name: ['mysql-server', 'postgresql-server', 'mongodb', 'postgresql-contrib']
+        state: latest

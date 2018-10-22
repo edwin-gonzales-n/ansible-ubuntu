@@ -1,0 +1,12 @@
+---
+- hosts: centos_nodes
+  tasks:
+    - name: yum update
+      yum:
+        name: '*'
+        state: latest
+   
+    - name: Installing NTP, NMAP, NTPDATE, RSYNC, PYTHON, DPKG, WGET
+      yum:
+        name: ['ntp', 'nmap', 'ntpdate', 'rsync', 'python', 'dpkg', 'wget']
+        state: latest

@@ -1,0 +1,15 @@
+Read up on Ansible Vault:
+       ansible-vault create test.yml
+       ansible-vault view test.yml
+
+Important modules:
+	setup
+	file
+	yum
+	apps
+	service
+	copy
+	user
+	command
+	
+ansible -m setup <node_name> will give you a series of 'facts' regarding this node.

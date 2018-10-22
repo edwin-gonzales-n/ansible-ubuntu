@@ -1,0 +1,12 @@
+---
+- hosts: app_portal
+  tasks:
+    - name: yum update
+      yum:
+        name: '*'
+        state: latest
+  
+    - name: "Installing Java 1.8"
+      yum:
+        name: ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel']
+        state: latest

@@ -3,10 +3,38 @@
   vars:
    package1: "nginx"
    package2: "wget"
+
   tasks:
       - name: Installing package NGINX
         apt: pkg=nginx state=present update_cache=true
+
       - name: Installing wget
         apt: name={{ package2 }} state=present update_cache=true
-      - name: Copying test1.out
-        copy: src=/tmp/test1.out dest=/tmp/test1.out
+
+#      - name: Copying test1.out
+ #       copy: src=/tmp/test1.out dest=/tmp/test1.out
+
+      - name: Apt-get update
+        apt:
+         update_cache: yes
+
+      - name: Installing default JRE
+        apt: pkg=default-jre
+
+      - name: Installing default JDK
+        apt: pkg=default-jdk
+ 
+      - name: Adding PPA for Java
+        apt_repository:
+            repo: ppa:openjdk-r/ppa
+            state: present
+
+      - name: Apt-get update
+        apt:
+         update_cache: yes
+
+      - name: Installing Java
+        apt: pkg=openjdk-8-jdk
+
+      - name: Installing NTP
+        apt: pkg=ntp

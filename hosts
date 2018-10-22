@@ -45,5 +45,19 @@
 ansible-node1
 ansible-node2
 
+[centos_nodes]
+webserver
+appserver
+dbserver
+
 [web_portal]
 ansible-node1
+
+[db_portal]
+dbserver
+
+[app_portal]
+appserver
+
+[suse_nodes]
+susenode
