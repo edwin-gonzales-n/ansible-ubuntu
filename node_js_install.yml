@@ -1,0 +1,44 @@
+---
+- hosts: my_nodes
+  tasks:
+    - name: Updating APT
+      apt:
+        update_cache: yes
+
+    - name: Installing CURL
+      apt:
+       pkg: curl
+       state: latest
+
+    - name: Updating PPA for Node.js
+      shell: curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+
+    - name: Updating APT
+      apt:
+        update_cache: yes
+
+    - name: Installing NODEJS
+      apt:
+       name: nodejs
+       state: present
+
+    - name: installing build-essentials
+      apt:
+       name: build-essential
+       state: latest
+
+    - name: Checking nodejs version
+      shell: node -v
+      register: node_version
+
+    - name: node version
+      debug:
+        var: node_version
+
+    - name: Checking npm version
+      shell: npm -v
+      register: npm_version
+
+    - name: npm version
+      debug:
+        var: npm_version
